@@ -47,7 +47,7 @@ class BookController extends Controller
         return response()->json([
             'status' => 201,
             'data' => $book
-        ],201);
+        ], 201);
     }
 
     /**
@@ -62,8 +62,13 @@ class BookController extends Controller
         if ($book) {
             return response()->json([
                 'status' => 200,
-                'message' => 'id atas'. $id . 'tidak ditemukan'
-            ],404);
+                'data' => $book
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'message' => 'id atas ' . $id . 'tidak ditemukan'
+            ], 404);
         }
     }
 
@@ -88,7 +93,7 @@ class BookController extends Controller
     public function update(Request $request, $id)
     {
         $book = Book::find($id);
-        if($book){
+        if ($book) {
             $book->title = $request->title ? $request->title : $book->title;
             $book->description = $request->description ? $request->description : $book->description;
             $book->author = $request->author ? $request->author : $book->author;
@@ -98,7 +103,7 @@ class BookController extends Controller
             return response()->json([
                 'status' => 404,
                 'message' => $id . 'Tidak ditemukan'
-            ],404);
+            ], 404);
         }
     }
 
@@ -110,13 +115,13 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        $book = Book::where('id',$id)->first();
-        if($book){
+        $book = Book::where('id', $id)->first();
+        if ($book) {
             $book->delete();
             return response()->json([
                 'status' => 404,
                 'message' => 'id' . $id . 'tidak ditemukan'
-            ],404);
+            ], 404);
         }
     }
 }

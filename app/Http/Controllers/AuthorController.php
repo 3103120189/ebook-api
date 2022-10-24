@@ -60,12 +60,17 @@ class AuthorController extends Controller
      */
     public function show($id)
     {
-        $author = Author::find($id);
-        if ($author) {
+        $author = author::find($id);
+        if($author) {
             return response()->json([
                 'status' => 200,
-                'message' => 'id atas'. $id . 'tidak ditemukan'
-            ],404);
+                'data' => $author
+            ], 200);
+        } else {
+            return response()->json([
+                'status' =>404,
+                'message' => 'id atas ' . $id .'tidak ditemukan'
+            ], 404);
         }
     }
 
