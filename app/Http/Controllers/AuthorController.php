@@ -123,12 +123,17 @@ class AuthorController extends Controller
      */
     public function destroy($id)
     {
-        $author = Author::where('id',$id)->first();
+        $author = author::where('id',$id)->first();
         if($author){
             $author->delete();
             return response()->json([
+                'status' => 200,
+                'data' => $author
+            ],200);
+        }else{
+            return response()->json([
                 'status' => 404,
-                'message' => 'id' . $id . 'tidak ditemukan'
+                'message' => 'id' . $id .'tidak ditemukan'
             ],404);
         }
     }
